@@ -1,0 +1,32 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.game--board--grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    outline: 2px solid #fff;
+    outline-offset: -2px;
+    height: 50vh;
+    width: 30%;
+    margin: 5em auto;
+}
+
+.game--board--grid--item {
+    background-color: #fff;
+    border: 2px solid #000;
+    padding: 1em;
+    text-align: center;
+    font-size: 2em;
+    cursor: pointer;
+}
+
+.game--board--grid--item:hover {
+    background-color: #00000033;
+    color: #fff;
+}
