@@ -1,5 +1,6 @@
 const squareItem = Array.from(document.querySelectorAll('.game--board--grid--item'));
 let playerText = document.querySelector('.game--player--text');
+let winnerText = document.querySelector('.winner--text');
 const restartBtn = document.querySelector('.game--restart--btn');
 const winnerIndicator = getComputedStyle(document.body).getPropertyValue('--winner-color') // need to make style for this
 const fontColor = getComputedStyle(document.body).getPropertyValue('--text-color') // need to make style for this
@@ -16,14 +17,15 @@ const startGame = () => {
 }
 
 function clickOutcome(e) {
+    playerText.style.display = "block";
     const id = e.target.dataset.index;
     if (!spaces[id]) {
         spaces[id] = currentPlayer;
         e.target.innerText = currentPlayer;
-        playerText.innerText = `${currentPlayer}'s turn`;
-
         if (playerHasWon() !== false) {
-            playerText.innerText = `${currentPlayer} has won!`;
+            playerText.style.display = "none";
+            winnerText.style.display = "block";
+            winnerText.innerText = `${currentPlayer} has won!`;
             squareItem.forEach(square => {
                 square.removeEventListener('click', clickOutcome);
             });
@@ -36,6 +38,7 @@ function clickOutcome(e) {
             playerText.innerText = `It's a draw!`;
         }
         currentPlayer = currentPlayer === X_TEXT ? O_TEXT : X_TEXT;
+        playerText.innerText = `${currentPlayer}'s turn`;
     }
 }
 
@@ -74,7 +77,7 @@ function restartGame() {
         square.addEventListener('click', clickOutcome);
     });
 
-    playerText.innerText = ``;
+    winnerText.style.display = "none";
 
     currentPlayer = X_TEXT;
 }
