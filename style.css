@@ -1,40 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&display=swap');
+
 * {
     box-sizing: border-box;
 }
 
 body {
     font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
 }
 
 :root {
-    --primary-color: #0cecdd;
-    --background-color: #000;
+    --primary-color: #0ed8ca;
+    --background-color: #222634;
     --text-color: #fff;
 
     --winner-color: #0fde7a;
+
+    --grid-item-size: 100px;
+
+    --heading-font: 'Shadows Into Light', cursive;
+    --X-O-font: 'Goldman', cursive;
 }
 
 .header--container {
     text-align: center;
 }
 
+.header--container h1 {
+    font-size: 4rem;
+    font-family: var(--heading-font)
+}
+
+.game--restart--btn {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    padding: 16px 32px;
+    border-radius: 5px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.game--restart--btn:hover {
+    background-color: #0cecddb0;
+    color: #fff;
+}
+
+.player--container {
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.game--player--text {
+    font-size: 3rem;
+    margin-bottom: 0;
+}
+
 .game--board--grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    grid-gap: 5px;
-    background-color: #000;
-    height: 50vh;
-    width: 30vw;
-    margin: 10em auto;
+    place-content: center;
+    grid-template-columns: repeat(3, auto);
+    height: 60vh;
+    width: 100vw;
 }
 
 .game--board--grid--item {
-    background-color: #fff;
-    padding: 1em;
-    text-align: center;
-    font-size: 2em;
+    border: 2px solid var(--primary-color);
+    width: var(--grid-item-size);
+    height: var(--grid-item-size);
     cursor: pointer;
+    font-size: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--X-O-font);
+}
+
+.game--board--grid--item:first-child,
+.game--board--grid--item:nth-child(2),
+.game--board--grid--item:nth-child(3) {
+    border-top: none;
+}
+
+.game--board--grid--item:nth-child(3n + 1) {
+    border-left: none;
+}
+
+.game--board--grid--item:nth-child(3n + 3) {
+    border-right: none;
+}
+
+/* remove the bottom border from the last row */
+.game--board--grid--item:nth-child(7),
+.game--board--grid--item:nth-child(8),
+.game--board--grid--item:nth-child(9) {
+    border-bottom: none;
 }
 
 .game--board--grid--item:hover {

@@ -1,7 +1,8 @@
 const squareItem = Array.from(document.querySelectorAll('.game--board--grid--item'));
 let playerText = document.querySelector('.game--player--text');
-let restartBtn = document.querySelector('.game--restart--btn');
-let winnerIndicator = getComputedStyle(document.body).getPropertyValue('--winner-color') // need to make style for this
+const restartBtn = document.querySelector('.game--restart--btn');
+const winnerIndicator = getComputedStyle(document.body).getPropertyValue('--winner-color') // need to make style for this
+const fontColor = getComputedStyle(document.body).getPropertyValue('--text-color') // need to make style for this
 
 const O_TEXT = "O";
 const X_TEXT = "X";
@@ -19,16 +20,21 @@ function clickOutcome(e) {
     if (!spaces[id]) {
         spaces[id] = currentPlayer;
         e.target.innerText = currentPlayer;
+        playerText.innerText = `${currentPlayer}'s turn`;
 
         if (playerHasWon() !== false) {
             playerText.innerText = `${currentPlayer} has won!`;
+            squareItem.forEach(square => {
+                square.removeEventListener('click', clickOutcome);
+            });
             let winning_squares = playerHasWon();
 
             winning_squares.map((square) => {
                 squareItem[square].style.color = winnerIndicator;
             });
+        } else if (spaces.every(space => space !== null)) {
+            playerText.innerText = `It's a draw!`;
         }
-
         currentPlayer = currentPlayer === X_TEXT ? O_TEXT : X_TEXT;
     }
 }
@@ -64,7 +70,8 @@ function restartGame() {
     });
     squareItem.forEach(square => {
         square.innerText = '';
-        square.style.color = '#000';
+        square.style.color = '#fff';
+        square.addEventListener('click', clickOutcome);
     });
 
     playerText.innerText = ``;
